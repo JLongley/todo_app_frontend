@@ -22,7 +22,7 @@ class Todo extends Component {
           Done
         </button>
         <input className={this.state.done ? "todo--done" : ""} type="text" value={this.state.value} onChange={this.handleChange} />
-        <button className="todo__button" onClick={() => {this.props.delete(this.state.id)}}>✖</button>
+        <button className="todo__button" onClick={() => {this.props.remove(this.state.id)}}>✖</button>
         <button className="todo__button">☰</button>
       </li>
     );

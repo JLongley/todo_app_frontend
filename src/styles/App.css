@@ -6,3 +6,9 @@
 .App-title {
   margin: 0 0 0 30px;
 }
+
+.container {
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 600px;
+}

@@ -1,0 +1,14 @@
+.todo-list {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list__form {
+  padding: 10px;
+  display: flex;
+}
+
+.todo-list__form > input {
+  flex: 1;
+}

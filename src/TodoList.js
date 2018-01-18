@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
+import "./styles/TodoList.css"
+
 import Todo from "./Todo";
+import TodoForm from "./TodoForm";
 
 class TodoList extends Component {
   constructor(props) {
@@ -9,7 +12,8 @@ class TodoList extends Component {
       todos: []
     }
 
-    this.delete = this.delete.bind(this);
+    this.remove = this.remove.bind(this);
+    this.add = this.add.bind(this);
   }
 
   componentWillMount() {
@@ -33,21 +37,34 @@ class TodoList extends Component {
 
   }
 
-  delete(id) {
-    const remainder = this.state.todos.filter((todo) => todo.id !== id);
+  add(value) {
+    this.state.todos.push({
+      id: Math.random(),
+      value: value,
+      done: false
+    });
+
+    this.setState({todos: this.state.todos});
+  }
+
+  remove(id) {
+    const newTodos = this.state.todos.filter((todo) => todo.id !== id);
     this.setState({
-      todos: remainder
+      todos: newTodos
     })
   }
 
   render() {
     const todos = this.state.todos.map((todo) => (
-      <Todo key={todo.id} todo={todo} handleChange={this.handleChange} delete={this.delete}/>
+      <Todo key={todo.id} todo={todo} handleChange={this.handleChange} remove={this.remove}/>
     ));
     return (
-      <ul >
-        {todos}
-      </ul>
+      <div>
+        <TodoForm className="todo-list__form" add={this.add}/>
+        <ul className="todo-list">
+          {todos}
+        </ul>
+      </div>
     );
   }
 }

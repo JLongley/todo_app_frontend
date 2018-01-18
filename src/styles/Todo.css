@@ -1,5 +1,11 @@
 .todo {
+  display: flex;
   list-style: none;
+  padding: .1em;
+}
+
+.todo > input {
+  flex: 1;
 }
 
 .todo--done {
