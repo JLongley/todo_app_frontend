@@ -8,19 +8,41 @@ class TodoList extends Component {
     this.state = {
       todos: []
     }
+
+    this.delete = this.delete.bind(this);
   }
 
   componentWillMount() {
     setTimeout(() => {
       this.setState({
-        todos: ["one", "two", "three"]
+        todos: [{
+          id: 123,
+          value: "one two three", 
+          done: false
+        },
+        {
+          id: 122,
+          value: "one two three", 
+          done: false
+        }]
       });
-    }, 2000);
+    }, 200);
+  }
+
+  handleChange(component) {
+
+  }
+
+  delete(id) {
+    const remainder = this.state.todos.filter((todo) => todo.id !== id);
+    this.setState({
+      todos: remainder
+    })
   }
 
   render() {
     const todos = this.state.todos.map((todo) => (
-      <Todo key={todo} default={todo} />
+      <Todo key={todo.id} todo={todo} handleChange={this.handleChange} delete={this.delete}/>
     ));
     return (
       <ul >
