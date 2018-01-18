@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './styles/App.css'
 
-import Todo from "./Todo";
+import TodoList from "./TodoList";
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
           <h1 className="App-title">TodoApp</h1>
         </header>
         <ul>
-          <Todo text="this item"/>
+          <TodoList />
         </ul>
       </div>
     );
