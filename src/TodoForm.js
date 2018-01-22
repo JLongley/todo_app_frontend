@@ -21,7 +21,7 @@ class TodoForm extends Component {
 
   render() {
     return (
-      <div {...this.props}>
+      <div className={this.props.className}>
         <input type="text" value={this.state.value} onChange={this.handleChange} onKeyPress={this.handleKeyPress}/>
         <button className="todo__button" onClick={() => {this.props.add(this.state.value)}}>Submit</button>
       </div>

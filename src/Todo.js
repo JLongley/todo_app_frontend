@@ -19,11 +19,10 @@ class Todo extends Component {
         <button className="todo__button" onClick={() => { 
           this.setState({done: !this.state.done})
         }}>
-          Done
+          ✓
         </button>
         <input className={this.state.done ? "todo--done" : ""} type="text" value={this.state.value} onChange={this.handleChange} />
-        <button className="todo__button" onClick={() => {this.props.remove(this.state.id)}}>✖</button>
-        <button className="todo__button">☰</button>
+        <button className="todo__button" onClick={() => {this.props.remove(this.state._id)}}>✖</button>
       </li>
     );
   }

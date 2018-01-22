@@ -6,6 +6,7 @@ import Todo from "./Todo";
 import TodoForm from "./TodoForm";
 
 class TodoList extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,20 +18,13 @@ class TodoList extends Component {
   }
 
   componentWillMount() {
-    setTimeout(() => {
-      this.setState({
-        todos: [{
-          id: 123,
-          value: "one two three", 
-          done: false
-        },
-        {
-          id: 122,
-          value: "one two three", 
-          done: false
-        }]
-      });
-    }, 200);
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/todos/`)
+      .then(response => response.json())
+      .then(todos => {
+        this.setState({
+          todos: todos
+        })
+      })
   }
 
   handleChange(component) {
@@ -39,16 +33,16 @@ class TodoList extends Component {
 
   add(value) {
     this.state.todos.push({
-      id: Math.random(),
+      _id: Math.random(),
       value: value,
       done: false
     });
 
     this.setState({todos: this.state.todos});
   }
-
-  remove(id) {
-    const newTodos = this.state.todos.filter((todo) => todo.id !== id);
+ 
+  remove(_id) {
+    const newTodos = this.state.todos.filter((todo) => todo._id !== _id);
     this.setState({
       todos: newTodos
     })
@@ -56,7 +50,7 @@ class TodoList extends Component {
 
   render() {
     const todos = this.state.todos.map((todo) => (
-      <Todo key={todo.id} todo={todo} handleChange={this.handleChange} remove={this.remove}/>
+      <Todo key={todo._id} todo={todo} handleChange={this.handleChange} remove={this.remove}/>
     ));
     return (
       <div>
