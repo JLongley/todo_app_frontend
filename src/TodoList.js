@@ -27,30 +27,58 @@ class TodoList extends Component {
       })
   }
 
-  handleChange(component) {
-
+  update(todo) {
+    return fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/todos/${todo._id}`, {
+      method: 'PUT',
+      body: JSON.stringify(todo), 
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      console.log('Success:', response)
+    });
   }
 
   add(value) {
-    this.state.todos.push({
-      _id: Math.random(),
-      value: value,
-      done: false
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/todos/`, {
+      method: 'POST',
+      body: JSON.stringify({
+        value: value,
+        done: false
+      }), 
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      console.log('Success:', response)
+      this.state.todos.push(response);
+      this.setState({todos: this.state.todos});
     });
-
-    this.setState({todos: this.state.todos});
   }
  
   remove(_id) {
     const newTodos = this.state.todos.filter((todo) => todo._id !== _id);
-    this.setState({
-      todos: newTodos
+    this.setState({ todos: newTodos })
+
+
+    fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/todos/${_id}`, {
+      method: 'DELETE',
     })
+    .catch(error => console.error('Error:', error))
+    .then(response => {
+      console.log(`Success: TODO ${_id} deleted.`)
+      const newTodos = this.state.todos.filter((todo) => todo._id !== _id);
+      this.setState({ todos: newTodos })
+    });
   }
 
   render() {
     const todos = this.state.todos.map((todo) => (
-      <Todo key={todo._id} todo={todo} handleChange={this.handleChange} remove={this.remove}/>
+      <Todo key={todo._id} todo={todo} update={this.update} remove={this.remove}/>
     ));
     return (
       <div>
